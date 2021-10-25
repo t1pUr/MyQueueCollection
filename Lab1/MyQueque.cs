@@ -10,6 +10,9 @@ namespace Lab1
         private Element<T>[] elements;
         private int count;
 
+        public delegate void Message(string mes);
+        public event Message Notification;
+
         public MyQueque(int capacity)
         {
             if (capacity < 0)
@@ -34,6 +37,7 @@ namespace Lab1
         {
             elements = new Element<T>[0];
             count = 0;
+            Notification?.Invoke("The Queue is cleared");
         }
 
         public bool Contains(T elem)
@@ -70,6 +74,7 @@ namespace Lab1
             elementArray[elementArray.Length - 1] = new Element<T>(item);
             elements = elementArray;
             count++;
+            Notification?.Invoke($"The element {item} was added to the Queue"); //
         }
 
         public T Dequeue()
@@ -86,6 +91,8 @@ namespace Lab1
             elements = elementArray;
             count--;
             return data;
+
+            Notification?.Invoke($"The first element {data} was dequeued from the Queue");
         }
 
         public T Peek()
@@ -98,6 +105,7 @@ namespace Lab1
             T[] objArray = new T[count];
             for (int index = 0; index < objArray.Length; index++)
                 objArray[index] = elements[index].Data;
+            Notification?.Invoke("The Queue was moved to Array");
             return objArray;
         }
 

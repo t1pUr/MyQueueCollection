@@ -4,9 +4,14 @@ namespace Lab1
 {
     internal class Program
     {
+        static void Message(string arg)
+        {
+            Console.WriteLine(arg);
+        }
         private static void Main(string[] args)
         {
             MyQueque<int> myQueque = new MyQueque<int>(10);
+            myQueque.Notification += Message;
             Console.WriteLine("Dequeued: - " + myQueque.TryDequeue(out int _).ToString());
             myQueque.Enqueue(4);
             myQueque.Enqueue(5);
