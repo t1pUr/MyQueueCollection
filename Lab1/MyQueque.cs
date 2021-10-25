@@ -90,9 +90,10 @@ namespace Lab1
 
             elements = elementArray;
             count--;
+            Notification?.Invoke($"The first element {data} was dequeued from the Queue");
             return data;
 
-            Notification?.Invoke($"The first element {data} was dequeued from the Queue");
+            
         }
 
         public T Peek()
