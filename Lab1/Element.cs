@@ -7,7 +7,6 @@
         public Element(T data)
         {
             this.data = data;
-            System.Console.WriteLine("Hello");
         }
             
 
