@@ -5,7 +5,11 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Lab1
 {
-    internal class MyQueque<T> : IEnumerable<T>
+    /// <summary>
+    /// Represents a first-in, first-out collection of objects.
+    /// </summary>
+    /// <typeparam name="T">Specifies the type of elements in the queue.</typeparam>
+    public class MyQueque<T> : IEnumerable<T>
     {
         private Element<T>[] elements;
         private int count;
@@ -24,7 +28,9 @@ namespace Lab1
         {
             elements = new Element<T>[1];
         }
-
+        /// <summary>
+        /// Gets the number of elements contained in the MyQueue collection.
+        /// </summary>
         public int Count
         {
             get
@@ -32,17 +38,25 @@ namespace Lab1
                 return count;
             }
         }
-
+        /// <summary>
+        /// Removes all objects from the MyQueue collection
+        /// </summary>
         public void Clear()
         {
             elements = new Element<T>[0];
             count = 0;
             Notification?.Invoke("The Queue is cleared");
         }
-
+        /// <summary>
+        /// Determines whether an element is in the MyQueue collection.
+        /// </summary>
+        /// <param name="elem">The object to locate in the MyQueue collection. The value can be null for reference types.</param>
+        /// <returns>true if item is found in the MyQueue collection; otherwise, false.</returns>
         public bool Contains(T elem)
         {
             bool flag = false;
+            if (count == 0)
+                return flag;
             for (int index = 0; index < elements.Length; ++index)
             {
                 if (Equals(elements[index].Data, elem))
@@ -50,7 +64,7 @@ namespace Lab1
             }
             return flag;
         }
-
+        
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (arrayIndex < 0)
@@ -60,7 +74,7 @@ namespace Lab1
             if (count > array.Length - arrayIndex)
                 throw new ArgumentException();
             for (int index = arrayIndex; index < array.Length; ++index)
-                array[index] = elements[index].Data;
+                array[index] = elements[index - arrayIndex].Data;
         }
 
         public void Enqueue(T item)
@@ -91,13 +105,13 @@ namespace Lab1
             elements = elementArray;
             count--;
             Notification?.Invoke($"The first element {data} was dequeued from the Queue");
-            return data;
-
-            
+            return data; 
         }
 
         public T Peek()
         {
+            if (count == 0)
+                throw new InvalidOperationException();
             return elements[0].Data;
         }
 
@@ -109,7 +123,6 @@ namespace Lab1
             Notification?.Invoke("The Queue was moved to Array");
             return objArray;
         }
-
         public void TrimExcess()
         {
             //In this case this method doing nothing

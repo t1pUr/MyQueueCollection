@@ -1,6 +1,6 @@
 ﻿namespace Lab1
 {
-    internal class Element<T>
+    public class Element<T>
     {
         private T data;
 
@@ -9,10 +9,8 @@
             this.data = data;
         }
             
-
         public Element() { }
         
-
         public T Data
         {
             get => this.data;
